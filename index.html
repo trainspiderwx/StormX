@@ -35,8 +35,8 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             overflow-x: hidden;
+            /* overflow-y ist standardmäßig aktiv, sodass man nun scrollen kann */
         }
 
         /* Hintergrund-Effekt */
@@ -228,6 +228,103 @@
             background: #2b2d31;
         }
 
+        /* --- NEU: Globale Section Titles --- */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            background: linear-gradient(135deg, #ffffff 40%, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        /* --- NEU: TikTok Banner Sektion --- */
+        .social-section {
+            max-width: 800px;
+            width: 100%;
+            margin: 2rem auto 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .tiktok-card {
+            background: linear-gradient(135deg, #181c25 0%, #20242f 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .tiktok-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tiktok-info i {
+            font-size: 3rem;
+            color: #ff0050; /* TikTok Farbe */
+            filter: drop-shadow(0 0 10px rgba(255,0,80,0.3));
+        }
+
+        .tiktok-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+
+        .tiktok-info p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .btn-tiktok {
+            background-color: #ff0050;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255,0,80,0.3);
+            border: none;
+        }
+
+        .btn-tiktok:hover {
+            background-color: #d90044;
+            transform: translateY(-2px);
+        }
+
+        .live-pulse {
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse-white 2s infinite;
+        }
+
+        @keyframes pulse-white {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        /* --- NEU: Discord Channel Sektion --- */
+        .channel-section {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .channel-container {
+            background: var(--card-bg);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            overflow: hidden; /* Verhindert Ecken-Überstand vom iframe */
+        }
+
         /* Team Sektion */
         .team-section {
             max-width: 1200px;
@@ -235,15 +332,6 @@
             margin: 4rem auto;
             padding: 0 2rem;
             text-align: center;
-        }
-
-        .team-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 2.5rem;
-            background: linear-gradient(135deg, #ffffff 40%, #a5b4fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         .team-grid {
@@ -323,6 +411,7 @@
             color: var(--text-muted);
             font-size: 0.9rem;
             border-top: 1px solid rgba(255,255,255,0.02);
+            margin-top: auto;
         }
     </style>
 </head>
@@ -377,10 +466,38 @@
         </div>
     </main>
 
+    <section class="social-section">
+        <div class="tiktok-card">
+            <div class="tiktok-info">
+                <i class="fa-brands fa-tiktok"></i>
+                <div>
+                    <h3>Wir sind auf TikTok!</h3>
+                    <p>Folg uns auf <strong>@twisted_german</strong> für Clips & Streams</p>
+                </div>
+            </div>
+            <a href="https://www.tiktok.com/@twisted_german/live" target="_blank" class="btn btn-tiktok">
+                <span class="live-pulse"></span> Check Live Status
+            </a>
+        </div>
+    </section>
+
     <section class="team-section">
-        <h2 class="team-title">Server Team</h2>
+        <h2 class="section-title">Server Team</h2>
         <div id="team-grid" class="team-grid">
             <p id="team-loading" style="color: var(--text-muted); font-size: 1rem;">Teammitglieder werden geladen...</p>
+        </div>
+    </section>
+
+    <section class="channel-section">
+        <h2 class="section-title">Live Chat Einblick</h2>
+        <div class="channel-container">
+            <widgetbot
+                server="1491862560100716544"
+                channel="1498188366284587068"
+                width="100%"
+                height="500"
+            ></widgetbot>
+            <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
         </div>
     </section>
 
@@ -478,5 +595,5 @@
         fetchDiscordOnlineStats();
         setInterval(fetchDiscordOnlineStats, 25000);
     </script>
-</body>
+</body>                                    
 </html>
