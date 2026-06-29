@@ -4,29 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StormX | Offizielle Community</title>
+    <meta name="description" content="Tritt der StormX Discord-Community bei – Gaming, Events und mehr.">
     <link rel="icon" type="image/png" href="icon.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
+        /* ===== DESIGN TOKENS ===== */
         :root {
-            --bg-dark: #0f1115;
-            --card-bg: #181c25;
-            --discord-blurple: #5865F2;
-            --discord-green: #23a55a;
-            --text-main: #f2f3f5;
-            --text-muted: #949ba4;
-            --accent-glow: rgba(88, 101, 242, 0.15);
+            --bg-dark:          #0c0e13;
+            --bg-mid:           #131720;
+            --card-bg:          #181c25;
+            --card-border:      rgba(255,255,255,0.06);
+            --blurple:          #5865F2;
+            --blurple-dim:      rgba(88,101,242,0.15);
+            --blurple-hover:    #4752c4;
+            --green:            #23a55a;
+            --tiktok:           #ff0050;
+            --text-main:        #f2f3f5;
+            --text-muted:       #949ba4;
+            --radius-card:      20px;
+            --radius-btn:       12px;
+            --transition:       0.2s ease;
+            --section-gap:      6rem;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -36,29 +43,37 @@
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
-            /* overflow-y ist standardmäßig aktiv, sodass man nun scrollen kann */
         }
 
-        /* Hintergrund-Effekt */
+        /* Ambient glow */
         body::before {
             content: '';
-            position: absolute;
-            top: -10%;
+            position: fixed;
+            top: -15%;
             left: 50%;
             transform: translateX(-50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            z-index: -1;
+            width: 800px;
+            height: 700px;
+            background: radial-gradient(ellipse, var(--blurple-dim) 0%, transparent 65%);
+            z-index: 0;
             pointer-events: none;
         }
 
-        /* Header / Navigation */
+        /* ===== NAVIGATION ===== */
         header {
-            padding: 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(12, 14, 19, 0.7);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .nav-inner {
             max-width: 1200px;
-            width: 100%;
             margin: 0 auto;
+            padding: 1.1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -69,79 +84,130 @@
             align-items: center;
             gap: 12px;
             font-weight: 800;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             letter-spacing: 0.5px;
+            text-decoration: none;
+            color: var(--text-main);
         }
 
         .brand img {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 10px;
             object-fit: cover;
             background: #2b2d31;
         }
 
-        /* Main Grid */
-        main {
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.5rem 0.9rem;
+            border-radius: 8px;
+            transition: color var(--transition), background var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--text-main);
+            background: rgba(255,255,255,0.06);
+        }
+
+        .nav-join-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--blurple);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.5rem 1.1rem;
+            border-radius: 10px;
+            transition: background var(--transition), transform var(--transition);
+            margin-left: 0.5rem;
+        }
+
+        .nav-join-btn:hover {
+            background: var(--blurple-hover);
+            transform: translateY(-1px);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            position: relative;
+            z-index: 1;
             max-width: 1200px;
             width: 100%;
             margin: 0 auto;
-            padding: 0 2rem 2rem 2rem;
+            padding: 5rem 2rem 4rem;
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
             gap: 4rem;
             align-items: center;
         }
 
-        @media (max-width: 968px) {
-            main {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-                text-align: center;
-            }
-            .brand { margin: 0 auto; }
-            .cta-buttons, .stats-row { justify-content: center; }
-            .widget-container { margin: 0 auto; }
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--blurple-dim);
+            border: 1px solid rgba(88,101,242,0.25);
+            color: #a5b4fc;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
         }
 
-        /* Hero Content */
         .hero-title {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 5vw, 3.8rem);
             font-weight: 800;
-            line-height: 1.15;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 40%, #a5b4fc);
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+            background: linear-gradient(140deg, #ffffff 30%, #a5b4fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero-description {
             color: var(--text-muted);
-            font-size: 1.15rem;
-            line-height: 1.6;
+            font-size: 1.1rem;
+            line-height: 1.7;
             margin-bottom: 2.5rem;
-            max-width: 540px;
+            max-width: 520px;
         }
 
-        /* Live Stats */
+        /* ===== STATS ===== */
         .stats-row {
             display: flex;
-            gap: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
             margin-bottom: 2.5rem;
         }
 
         .stat-card {
             background: var(--card-bg);
-            padding: 1rem 2rem;
+            padding: 0.9rem 1.6rem;
             border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid var(--card-border);
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
         }
 
         .stat-value {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             font-weight: 800;
             display: flex;
             align-items: center;
@@ -150,285 +216,395 @@
 
         .stat-label {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
         }
 
         .pulse-dot {
-            width: 10px;
-            height: 10px;
-            background-color: var(--discord-green);
+            width: 9px;
+            height: 9px;
+            background: var(--green);
             border-radius: 50%;
-            display: inline-block;
-            box-shadow: 0 0 12px var(--discord-green);
+            box-shadow: 0 0 10px var(--green);
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(35, 165, 90, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(35, 165, 90, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(35, 165, 90, 0); }
+            0%   { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(35,165,90,0.7); }
+            70%  { transform: scale(1);    box-shadow: 0 0 0 8px rgba(35,165,90,0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(35,165,90,0); }
         }
 
-        /* Buttons & Actions */
+        /* ===== BUTTONS ===== */
         .cta-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 0.85rem;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 0.9rem 1.8rem;
-            border-radius: 12px;
+            gap: 9px;
+            padding: 0.85rem 1.7rem;
+            border-radius: var(--radius-btn);
             font-weight: 600;
+            font-size: 0.95rem;
             text-decoration: none;
-            transition: all 0.2s ease;
+            transition: all var(--transition);
             cursor: pointer;
+            border: none;
         }
 
         .btn-primary {
-            background-color: var(--discord-blurple);
+            background: var(--blurple);
             color: white;
-            box-shadow: 0 4px 20px rgba(88, 101, 242, 0.3);
+            box-shadow: 0 4px 20px rgba(88,101,242,0.35);
         }
 
         .btn-primary:hover {
-            background-color: #4752c4;
+            background: var(--blurple-hover);
             transform: translateY(-2px);
+            box-shadow: 0 6px 28px rgba(88,101,242,0.45);
         }
 
         .btn-secondary {
-            background-color: transparent;
+            background: transparent;
             color: var(--text-main);
             border: 1px solid rgba(255,255,255,0.15);
         }
 
         .btn-secondary:hover {
-            background-color: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.06);
             border-color: rgba(255,255,255,0.3);
         }
 
-        /* Discord Widget Container */
+        /* ===== DISCORD WIDGET ===== */
         .widget-container {
             background: var(--card-bg);
-            padding: 1.5rem;
+            padding: 1.25rem;
             border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            max-width: 398px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+            max-width: 400px;
             width: 100%;
         }
 
         .widget-container iframe {
             border-radius: 14px;
             background: #2b2d31;
+            display: block;
         }
 
-        /* --- NEU: Globale Section Titles --- */
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 2.5rem;
-            background: linear-gradient(135deg, #ffffff 40%, #a5b4fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-align: center;
-        }
-
-        /* --- NEU: TikTok Banner Sektion --- */
-        .social-section {
-            max-width: 800px;
+        /* ===== SECTION LAYOUT ===== */
+        .section {
+            position: relative;
+            z-index: 1;
             width: 100%;
-            margin: 2rem auto 4rem auto;
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
             padding: 0 2rem;
         }
 
+        .section-inner--wide {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-eyebrow {
+            display: inline-block;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 40%, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-divider {
+            border: none;
+            border-top: 1px solid var(--card-border);
+            margin: var(--section-gap) auto;
+            max-width: 1100px;
+        }
+
+        /* ===== TIKTOK BANNER ===== */
         .tiktok-card {
-            background: linear-gradient(135deg, #181c25 0%, #20242f 100%);
-            padding: 2rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
+            background: linear-gradient(135deg, #181c25 0%, #1e2230 100%);
+            padding: 2rem 2.5rem;
+            border-radius: var(--radius-card);
+            border: 1px solid var(--card-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
         }
 
         .tiktok-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 18px;
         }
 
-        .tiktok-info i {
-            font-size: 3rem;
-            color: #ff0050; /* TikTok Farbe */
-            filter: drop-shadow(0 0 10px rgba(255,0,80,0.3));
+        .tiktok-icon-wrap {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,0,80,0.1);
+            border: 1px solid rgba(255,0,80,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .tiktok-icon-wrap i {
+            font-size: 1.8rem;
+            color: var(--tiktok);
+            filter: drop-shadow(0 0 8px rgba(255,0,80,0.4));
         }
 
         .tiktok-info h3 {
-            font-size: 1.4rem;
-            margin-bottom: 4px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 3px;
         }
 
         .tiktok-info p {
             color: var(--text-muted);
-            font-size: 1rem;
+            font-size: 0.92rem;
         }
 
         .btn-tiktok {
-            background-color: #ff0050;
+            background: var(--tiktok);
             color: white;
             box-shadow: 0 4px 15px rgba(255,0,80,0.3);
-            border: none;
         }
 
         .btn-tiktok:hover {
-            background-color: #d90044;
+            background: #d90044;
             transform: translateY(-2px);
         }
 
         .live-pulse {
-            width: 10px;
-            height: 10px;
-            background-color: #fff;
+            width: 9px;
+            height: 9px;
+            background: white;
             border-radius: 50%;
             display: inline-block;
             animation: pulse-white 2s infinite;
         }
 
         @keyframes pulse-white {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+            0%   { box-shadow: 0 0 0 0 rgba(255,255,255,0.7); }
+            70%  { box-shadow: 0 0 0 7px rgba(255,255,255,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
         }
 
-        /* --- NEU: Discord Channel Sektion --- */
-        .channel-section {
-            max-width: 1000px;
-            width: 100%;
-            margin: 0 auto 4rem auto;
-            padding: 0 2rem;
-        }
-
-        .channel-container {
-            background: var(--card-bg);
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            overflow: hidden; /* Verhindert Ecken-Überstand vom iframe */
-        }
-
-        /* Team Sektion */
-        .team-section {
-            max-width: 1200px;
-            width: 100%;
-            margin: 4rem auto;
-            padding: 0 2rem;
-            text-align: center;
-        }
-
+        /* ===== TEAM GRID ===== */
         .team-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 1.25rem;
         }
 
         .team-card {
             background: var(--card-bg);
-            padding: 1.5rem;
+            padding: 1.5rem 1.25rem;
             border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid var(--card-border);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
-            width: 180px;
-            transition: transform 0.2s ease;
+            gap: 10px;
+            width: 160px;
+            transition: transform var(--transition), border-color var(--transition);
         }
 
         .team-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
+            border-color: rgba(255,255,255,0.12);
         }
 
-        .avatar-wrapper {
-            position: relative;
-        }
+        .avatar-wrapper { position: relative; }
 
         .avatar-img {
-            width: 75px;
-            height: 75px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            border: 2px solid var(--discord-blurple);
+            border: 2.5px solid var(--blurple);
             object-fit: cover;
         }
 
         .status-dot {
             position: absolute;
-            bottom: 4px;
-            right: 4px;
-            width: 14px;
-            height: 14px;
+            bottom: 3px;
+            right: 3px;
+            width: 13px;
+            height: 13px;
             border-radius: 50%;
             border: 2px solid var(--card-bg);
         }
 
-        .status-online { background-color: var(--discord-green); box-shadow: 0 0 8px var(--discord-green); }
-        .status-idle { background-color: #f0b232; box-shadow: 0 0 8px #f0b232; }
-        .status-dnd { background-color: #f23f43; box-shadow: 0 0 8px #f23f43; }
+        .status-online { background: var(--green); box-shadow: 0 0 7px var(--green); }
+        .status-idle   { background: #f0b232;      box-shadow: 0 0 7px #f0b232; }
+        .status-dnd    { background: #f23f43;      box-shadow: 0 0 7px #f23f43; }
 
         .member-name {
             font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--text-main);
+            font-size: 0.92rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             width: 100%;
+            text-align: center;
         }
 
         .member-role {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             font-weight: 800;
             letter-spacing: 0.7px;
-            padding: 4px 10px;
+            padding: 3px 9px;
             border-radius: 8px;
-            background: rgba(88, 101, 242, 0.1);
+            background: rgba(88,101,242,0.1);
+            text-align: center;
         }
 
-        /* Footer */
+        /* ===== LIVE CHAT ===== */
+        .channel-container {
+            background: var(--card-bg);
+            border-radius: 24px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        /* ===== FOOTER ===== */
         footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255,255,255,0.02);
+            position: relative;
+            z-index: 1;
             margin-top: auto;
+            padding: 2.5rem 2rem;
+            border-top: 1px solid var(--card-border);
+            text-align: center;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-brand {
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color var(--transition);
+        }
+
+        .footer-link:hover { color: var(--text-main); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 968px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 3rem;
+                gap: 3rem;
+            }
+
+            .hero-eyebrow, .cta-buttons, .stats-row { justify-content: center; }
+
+            .hero-description { margin-left: auto; margin-right: auto; }
+
+            .widget-container { margin: 0 auto; }
+
+            .brand { justify-content: center; }
+
+            .nav-links { display: none; }
+
+            .footer-inner { flex-direction: column; text-align: center; }
+            .footer-links { justify-content: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
         }
     </style>
 </head>
 <body>
 
+    <!-- ===== NAVIGATION ===== -->
     <header>
-        <div class="brand">
-            <img src="icon.png" alt="" onerror="this.style.display='none'">
-            <span>StormX</span>
+        <div class="nav-inner">
+            <a href="#" class="brand">
+                <img src="icon.png" alt="" onerror="this.style.display='none'">
+                <span>StormX</span>
+            </a>
+            <nav class="nav-links" aria-label="Hauptnavigation">
+                <a href="#team" class="nav-link">Team</a>
+                <a href="#chat" class="nav-link">Live Chat</a>
+                <a href="https://www.tiktok.com/@twisted_german/live" target="_blank" rel="noopener" class="nav-link">TikTok</a>
+                <a href="https://discord.gg/zycyFDWAB2" target="_blank" rel="noopener" class="nav-join-btn">
+                    <i class="fa-brands fa-discord"></i> Beitreten
+                </a>
+            </nav>
         </div>
     </header>
 
-    <main>
+    <!-- ===== HERO ===== -->
+    <section class="hero-section" aria-label="Willkommen">
         <div class="hero-content">
-            <h1 class="hero-title">Tritt dem StormX Server bei</h1>
+            <div class="hero-eyebrow">
+                <span class="pulse-dot"></span>
+                Community ist live
+            </div>
+            <h1 class="hero-title">Dein Platz in der StormX Community</h1>
             <p class="hero-description">
-                Willkommen bei StormX! Verbinde dich mit unserer Community, nimm an Events teil oder joine direkt unseren Sprachkanälen für Gaming und Austausch. Bei Fragen erreichst du uns jederzeit direkt über den Support.
+                Gaming, Events und echte Gespräche – alles an einem Ort. Verbinde dich mit Gleichgesinnten, nimm an Community-Events teil und spring direkt in unsere Sprachkanäle.
             </p>
 
             <div class="stats-row">
@@ -437,163 +613,190 @@
                         <span class="pulse-dot"></span>
                         <span id="live-online-count">--</span>
                     </span>
-                    <span class="stat-label">Online</span>
+                    <span class="stat-label">Gerade online</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-value"><i class="fa-solid fa-headset" style="color: var(--discord-blurple); font-size: 1.5rem;"></i></span>
-                    <span class="stat-label">Sprachkanäle Aktiv</span>
+                    <span class="stat-value">
+                        <i class="fa-solid fa-headset" style="color: var(--blurple); font-size: 1.4rem;"></i>
+                    </span>
+                    <span class="stat-label">Sprachkanäle</span>
                 </div>
             </div>
 
             <div class="cta-buttons">
-                <a href="https://discord.gg/zycyFDWAB2" target="_blank" class="btn btn-primary">
+                <a href="https://discord.gg/zycyFDWAB2" target="_blank" rel="noopener" class="btn btn-primary">
                     <i class="fa-brands fa-discord"></i> Server beitreten
                 </a>
-                <a href="https://discord.gg/zycyFDWAB2" target="_blank" class="btn btn-secondary">
-                    <i class="fa-solid fa-volume-high"></i> Direkt in Sprachkanal
+                <a href="https://discord.gg/zycyFDWAB2" target="_blank" rel="noopener" class="btn btn-secondary">
+                    <i class="fa-solid fa-volume-high"></i> Sprachkanal joinen
                 </a>
             </div>
         </div>
 
-        <div class="widget-container">
+        <div class="widget-container" aria-label="Discord-Widget">
             <iframe src="https://discord.com/widget?id=1491862560100716544&theme=dark" 
                     width="100%" 
                     height="500" 
                     allowtransparency="true" 
                     frameborder="0" 
+                    title="StormX Discord-Widget"
                     sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
             </iframe>
         </div>
-    </main>
+    </section>
 
-    <section class="social-section">
-        <div class="tiktok-card">
-            <div class="tiktok-info">
-                <i class="fa-brands fa-tiktok"></i>
-                <div>
-                    <h3>Wir sind auf TikTok!</h3>
-                    <p>Folg uns auf <strong>@twisted_german</strong> für Clips & Streams</p>
+    <hr class="section-divider">
+
+    <!-- ===== TIKTOK ===== -->
+    <section class="section" aria-label="TikTok">
+        <div class="section-inner">
+            <div class="tiktok-card">
+                <div class="tiktok-info">
+                    <div class="tiktok-icon-wrap">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </div>
+                    <div>
+                        <h3>Schau uns auf TikTok zu</h3>
+                        <p>Clips, Highlights und Live-Streams auf <strong>@twisted_german</strong></p>
+                    </div>
                 </div>
+                <a href="https://www.tiktok.com/@twisted_german/live" target="_blank" rel="noopener" class="btn btn-tiktok">
+                    <span class="live-pulse"></span> Jetzt live schauen
+                </a>
             </div>
-            <a href="https://www.tiktok.com/@twisted_german/live" target="_blank" class="btn btn-tiktok">
-                <span class="live-pulse"></span> Check Live Status
-            </a>
         </div>
     </section>
 
-    <section class="team-section">
-        <h2 class="section-title">Server Team</h2>
-        <div id="team-grid" class="team-grid">
-            <p id="team-loading" style="color: var(--text-muted); font-size: 1rem;">Teammitglieder werden geladen...</p>
+    <hr class="section-divider">
+
+    <!-- ===== TEAM ===== -->
+    <section class="section" id="team" aria-label="Server-Team">
+        <div class="section-inner--wide">
+            <div class="section-header">
+                <span class="section-eyebrow">Hinter dem Server</span>
+                <h2 class="section-title">Das StormX Team</h2>
+            </div>
+            <div id="team-grid" class="team-grid" role="list">
+                <p id="team-loading" style="color: var(--text-muted);">Team wird geladen…</p>
+            </div>
         </div>
     </section>
 
-    <section class="channel-section">
-        <h2 class="section-title">Live Chat Einblick</h2>
-        <div class="channel-container">
-            <widgetbot
-                server="1491862560100716544"
-                channel="1498188366284587068"
-                width="100%"
-                height="500"
-            ></widgetbot>
-            <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
+    <hr class="section-divider">
+
+    <!-- ===== LIVE CHAT ===== -->
+    <section class="section" id="chat" aria-label="Live Chat">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-eyebrow">Community</span>
+                <h2 class="section-title">Live Chat</h2>
+            </div>
+            <div class="channel-container">
+                <widgetbot
+                    server="1491862560100716544"
+                    channel="1498188366284587068"
+                    width="100%"
+                    height="520"
+                ></widgetbot>
+                <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
+            </div>
         </div>
     </section>
 
+    <!-- ===== FOOTER ===== -->
     <footer>
-        &copy; 2026 StormX Community. Alle Rechte vorbehalten.
+        <div class="footer-inner">
+            <div class="footer-brand">StormX</div>
+            <span class="footer-copy">&copy; 2026 StormX Community – Alle Rechte vorbehalten.</span>
+            <div class="footer-links">
+                <a href="https://discord.gg/zycyFDWAB2" target="_blank" rel="noopener" class="footer-link">Discord</a>
+                <a href="https://www.tiktok.com/@twisted_german" target="_blank" rel="noopener" class="footer-link">TikTok</a>
+            </div>
+        </div>
     </footer>
 
+    <!-- ===== SCRIPTS ===== -->
     <script>
         const DISCORD_SERVER_ID = '1491862560100716544';
 
         const TEAM_CONFIG = {
-            '1105590251847684227': { roleName: 'Head Developer', prio: 0, color: '#e67e22' }, 
-            '1309989157334024337': { roleName: 'Projektinhaber', prio: 1, color: '#f1c40f' },
-            '1344002205426127020': { roleName: 'Serverleitung', prio: 2, color: '#f1c40f' },
-            '1481759446341255228': { roleName: 'Head Admin', prio: 3, color: '#e91e63' },
-            '1135512016342229042': { roleName: 'Senior Admin', prio: 4, color: '#e91e63' },
-            '1487393719052402719': { roleName: 'Admin', prio: 5, color: '#e91e63' },
-            '952104006132568135':  { roleName: 'Trail Admin', prio: 6, color: '#e91e63' },
-            '1191924935921242134': { roleName: 'Head Developer', prio: 7, color: '#e67e22' },
-            '1225850296312533146': { roleName: 'Staff Lead', prio: 8, color: '#f1c40f' },
-            '1303796876201689169': { roleName: 'Trail Staff Lead', prio: 9, color: '#f1c40f' },
+            '1105590251847684227': { roleName: 'Head Developer',    prio: 0,  color: '#e67e22' },
+            '1309989157334024337': { roleName: 'Projektinhaber',    prio: 1,  color: '#f1c40f' },
+            '1344002205426127020': { roleName: 'Serverleitung',     prio: 2,  color: '#f1c40f' },
+            '1481759446341255228': { roleName: 'Head Admin',        prio: 3,  color: '#e91e63' },
+            '1135512016342229042': { roleName: 'Senior Admin',      prio: 4,  color: '#e91e63' },
+            '1487393719052402719': { roleName: 'Admin',             prio: 5,  color: '#e91e63' },
+            '952104006132568135':  { roleName: 'Trial Admin',       prio: 6,  color: '#e91e63' },
+            '1191924935921242134': { roleName: 'Head Developer',    prio: 7,  color: '#e67e22' },
+            '1225850296312533146': { roleName: 'Staff Lead',        prio: 8,  color: '#f1c40f' },
+            '1303796876201689169': { roleName: 'Trial Staff Lead',  prio: 9,  color: '#f1c40f' },
             '1344554604003594351': { roleName: 'Discord High Team', prio: 10, color: '#607d8b' },
-            '1506698070602285136': { roleName: 'Head Moderator', prio: 11, color: '#3498db' },
-            '1424779497940455454': { roleName: 'Senior Moderator', prio: 12, color: '#3498db' },
-            '1228989350331809909': { roleName: 'Moderator', prio: 13, color: '#2ecc71' }
+            '1506698070602285136': { roleName: 'Head Moderator',    prio: 11, color: '#3498db' },
+            '1424779497940455454': { roleName: 'Senior Moderator',  prio: 12, color: '#3498db' },
+            '1228989350331809909': { roleName: 'Moderator',         prio: 13, color: '#2ecc71' }
         };
 
-        // Hilfsfunktion, die das HTML für das Team generiert
         function renderTeamGrid(members) {
             const teamGrid = document.getElementById('team-grid');
-            let onlineTeam = members.filter(member => TEAM_CONFIG[member.id] !== undefined);
+            const onlineTeam = members
+                .filter(m => TEAM_CONFIG[m.id])
+                .sort((a, b) => TEAM_CONFIG[a.id].prio - TEAM_CONFIG[b.id].prio);
 
-            if (onlineTeam.length > 0) {
-                onlineTeam.sort((a, b) => TEAM_CONFIG[a.id].prio - TEAM_CONFIG[b.id].prio);
-                teamGrid.innerHTML = ''; 
-
-                onlineTeam.forEach(member => {
-                    const config = TEAM_CONFIG[member.id];
-                    let statusClass = 'status-online';
-                    if (member.status === 'idle') statusClass = 'status-idle';
-                    if (member.status === 'dnd') statusClass = 'status-dnd';
-
-                    const card = document.createElement('div');
-                    card.className = 'team-card';
-                    card.innerHTML = `
-                        <div class="avatar-wrapper">
-                            <img src="${member.avatar_url}" alt="${member.username}" class="avatar-img" style="border-color: ${config.color};">
-                            <span class="status-dot ${statusClass}"></span>
-                        </div>
-                        <div class="member-name" title="${member.username}">${member.username}</div>
-                        <div class="member-role" style="color: ${config.color}; background: ${config.color}15;">${config.roleName}</div>
-                    `;
-                    teamGrid.appendChild(card);
-                });
-            } else {
+            if (onlineTeam.length === 0) {
                 teamGrid.innerHTML = '<p style="color: var(--text-muted);">Aktuell keine Teammitglieder online.</p>';
-            }
-        }
-
-        function fetchDiscordOnlineStats() {
-            // TRICK: Wenn die Datei lokal auf dem PC läuft, lade Fake-Daten zum Testen
-            if (window.location.protocol === 'file:') {
-                document.getElementById('live-online-count').innerText = "12";
-                
-                const mockMembers = [
-                    { id: '1309989157334024337', username: 'Projektinhaber (Test)', status: 'dnd', avatar_url: 'https://cdn.discordapp.com/embed/avatars/1.png' },
-                    { id: '1105590251847684227', username: 'Head Dev (Test)', status: 'online', avatar_url: 'https://cdn.discordapp.com/embed/avatars/0.png' },
-                    { id: '1487393719052402719', username: 'Admin (Test)', status: 'idle', avatar_url: 'https://cdn.discordapp.com/embed/avatars/2.png' }
-                ];
-                renderTeamGrid(mockMembers);
                 return;
             }
 
-            // Normaler Live-Abruf (wird auf GitHub aktiv)
+            teamGrid.innerHTML = '';
+            onlineTeam.forEach(member => {
+                const config = TEAM_CONFIG[member.id];
+                const statusClass = { idle: 'status-idle', dnd: 'status-dnd' }[member.status] ?? 'status-online';
+
+                const card = document.createElement('div');
+                card.className = 'team-card';
+                card.setAttribute('role', 'listitem');
+                card.innerHTML = `
+                    <div class="avatar-wrapper">
+                        <img src="${member.avatar_url}" alt="${member.username}" class="avatar-img" style="border-color: ${config.color};">
+                        <span class="status-dot ${statusClass}" aria-hidden="true"></span>
+                    </div>
+                    <div class="member-name" title="${member.username}">${member.username}</div>
+                    <div class="member-role" style="color: ${config.color}; background: ${config.color}18;">${config.roleName}</div>
+                `;
+                teamGrid.appendChild(card);
+            });
+        }
+
+        function fetchDiscordData() {
+            // Lokal: Testdaten laden
+            if (window.location.protocol === 'file:') {
+                document.getElementById('live-online-count').textContent = '12';
+                renderTeamGrid([
+                    { id: '1309989157334024337', username: 'Projektinhaber',  status: 'dnd',    avatar_url: 'https://cdn.discordapp.com/embed/avatars/1.png' },
+                    { id: '1105590251847684227', username: 'Head Dev',         status: 'online', avatar_url: 'https://cdn.discordapp.com/embed/avatars/0.png' },
+                    { id: '1487393719052402719', username: 'Admin',            status: 'idle',   avatar_url: 'https://cdn.discordapp.com/embed/avatars/2.png' }
+                ]);
+                return;
+            }
+
             fetch(`https://discord.com/api/guilds/${DISCORD_SERVER_ID}/widget.json`)
-                .then(response => {
-                    if (!response.ok) throw new Error('Widget-Daten unvollständig');
-                    return response.json();
-                })
+                .then(r => { if (!r.ok) throw new Error('Widget-Fehler'); return r.json(); })
                 .then(data => {
                     if (data.presence_count !== undefined) {
-                        document.getElementById('live-online-count').innerText = data.presence_count;
+                        document.getElementById('live-online-count').textContent = data.presence_count;
                     }
-                    if (data.members && data.members.length > 0) {
-                        renderTeamGrid(data.members);
-                    }
+                    if (data.members?.length) renderTeamGrid(data.members);
                 })
-                .catch(error => {
-                    console.error('Fehler beim Abrufen der Discord-Zahlen:', error);
-                    document.getElementById('live-online-count').innerText = "Online";
-                    document.getElementById('team-grid').innerHTML = '<p style="color: var(--text-muted);">Verbindung zu Discord blockiert (Lokale Datei).</p>';
+                .catch(err => {
+                    console.error('Discord-Fehler:', err);
+                    document.getElementById('live-online-count').textContent = '–';
+                    document.getElementById('team-grid').innerHTML =
+                        '<p style="color: var(--text-muted);">Team gerade nicht erreichbar.</p>';
                 });
         }
-        
-        fetchDiscordOnlineStats();
-        setInterval(fetchDiscordOnlineStats, 25000);
+
+        fetchDiscordData();
+        setInterval(fetchDiscordData, 25_000);
     </script>
-</body>                                    
+</body>
 </html>
