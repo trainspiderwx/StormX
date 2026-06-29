@@ -3,10 +3,464 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StormX Twisted</title>
+    <title>StormX | Offizielle Community</title>
+    <link rel="icon" type="image/png" href="icon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0f1115;
+            --card-bg: #181c25;
+            --discord-blurple: #5865F2;
+            --discord-green: #23a55a;
+            --text-main: #f2f3f5;
+            --text-muted: #949ba4;
+            --accent-glow: rgba(88, 101, 242, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+        }
+
+        /* Hintergrund-Effekt */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Header / Navigation */
+        header {
+            padding: 2rem;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .brand img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: #2b2d31;
+        }
+
+        /* Main Grid */
+        main {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem 2rem 2rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 968px) {
+            main {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            .brand { margin: 0 auto; }
+            .cta-buttons, .stats-row { justify-content: center; }
+            .widget-container { margin: 0 auto; }
+        }
+
+        /* Hero Content */
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 40%, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            max-width: 540px;
+        }
+
+        /* Live Stats */
+        .stats-row {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pulse-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--discord-green);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 12px var(--discord-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(35, 165, 90, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(35, 165, 90, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(35, 165, 90, 0); }
+        }
+
+        /* Buttons & Actions */
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.9rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--discord-blurple);
+            color: white;
+            box-shadow: 0 4px 20px rgba(88, 101, 242, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #4752c4;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        /* Discord Widget Container */
+        .widget-container {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            max-width: 398px;
+            width: 100%;
+        }
+
+        .widget-container iframe {
+            border-radius: 14px;
+            background: #2b2d31;
+        }
+
+        /* Team Sektion */
+        .team-section {
+            max-width: 1200px;
+            width: 100%;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .team-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            background: linear-gradient(135deg, #ffffff 40%, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .team-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 180px;
+            transition: transform 0.2s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .avatar-wrapper {
+            position: relative;
+        }
+
+        .avatar-img {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border: 2px solid var(--discord-blurple);
+            object-fit: cover;
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid var(--card-bg);
+        }
+
+        .status-online { background-color: var(--discord-green); box-shadow: 0 0 8px var(--discord-green); }
+        .status-idle { background-color: #f0b232; box-shadow: 0 0 8px #f0b232; }
+        .status-dnd { background-color: #f23f43; box-shadow: 0 0 8px #f23f43; }
+
+        .member-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        .member-role {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.7px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            background: rgba(88, 101, 242, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.02);
+        }
+    </style>
 </head>
 <body>
-    <h1>Test!</h1>
-    <p>Test</p>
+
+    <header>
+        <div class="brand">
+            <img src="icon.png" alt="" onerror="this.style.display='none'">
+            <span>StormX</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero-content">
+            <h1 class="hero-title">Tritt dem StormX Server bei</h1>
+            <p class="hero-description">
+                Willkommen bei StormX! Verbinde dich mit unserer Community, nimm an Events teil oder joine direkt unseren Sprachkanälen für Gaming und Austausch. Bei Fragen erreichst du uns jederzeit direkt über den Support.
+            </p>
+
+            <div class="stats-row">
+                <div class="stat-card">
+                    <span class="stat-value">
+                        <span class="pulse-dot"></span>
+                        <span id="live-online-count">--</span>
+                    </span>
+                    <span class="stat-label">Online</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value"><i class="fa-solid fa-headset" style="color: var(--discord-blurple); font-size: 1.5rem;"></i></span>
+                    <span class="stat-label">Sprachkanäle Aktiv</span>
+                </div>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="https://discord.gg/zycyFDWAB2" target="_blank" class="btn btn-primary">
+                    <i class="fa-brands fa-discord"></i> Server beitreten
+                </a>
+                <a href="https://discord.gg/zycyFDWAB2" target="_blank" class="btn btn-secondary">
+                    <i class="fa-solid fa-volume-high"></i> Direkt in Sprachkanal
+                </a>
+            </div>
+        </div>
+
+        <div class="widget-container">
+            <iframe src="https://discord.com/widget?id=1491862560100716544&theme=dark" 
+                    width="100%" 
+                    height="500" 
+                    allowtransparency="true" 
+                    frameborder="0" 
+                    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+            </iframe>
+        </div>
+    </main>
+
+    <section class="team-section">
+        <h2 class="team-title">Server Team</h2>
+        <div id="team-grid" class="team-grid">
+            <p id="team-loading" style="color: var(--text-muted); font-size: 1rem;">Teammitglieder werden geladen...</p>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 StormX Community. Alle Rechte vorbehalten.
+    </footer>
+
+    <script>
+        const DISCORD_SERVER_ID = '1491862560100716544';
+
+        const TEAM_CONFIG = {
+            '1105590251847684227': { roleName: 'Head Developer', prio: 0, color: '#e67e22' }, 
+            '1309989157334024337': { roleName: 'Projektinhaber', prio: 1, color: '#f1c40f' },
+            '1344002205426127020': { roleName: 'Serverleitung', prio: 2, color: '#f1c40f' },
+            '1481759446341255228': { roleName: 'Head Admin', prio: 3, color: '#e91e63' },
+            '1135512016342229042': { roleName: 'Senior Admin', prio: 4, color: '#e91e63' },
+            '1487393719052402719': { roleName: 'Admin', prio: 5, color: '#e91e63' },
+            '952104006132568135':  { roleName: 'Trail Admin', prio: 6, color: '#e91e63' },
+            '1191924935921242134': { roleName: 'Head Developer', prio: 7, color: '#e67e22' },
+            '1225850296312533146': { roleName: 'Staff Lead', prio: 8, color: '#f1c40f' },
+            '1303796876201689169': { roleName: 'Trail Staff Lead', prio: 9, color: '#f1c40f' },
+            '1344554604003594351': { roleName: 'Discord High Team', prio: 10, color: '#607d8b' },
+            '1506698070602285136': { roleName: 'Head Moderator', prio: 11, color: '#3498db' },
+            '1424779497940455454': { roleName: 'Senior Moderator', prio: 12, color: '#3498db' },
+            '1228989350331809909': { roleName: 'Moderator', prio: 13, color: '#2ecc71' }
+        };
+
+        function fetchDiscordOnlineStats() {
+            fetch(`https://discord.com/api/guilds/${DISCORD_SERVER_ID}/widget.json`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Widget-Daten unvollständig');
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.presence_count !== undefined) {
+                        document.getElementById('live-online-count').innerText = data.presence_count;
+                    }
+
+                    if (data.members && data.members.length > 0) {
+                        const teamGrid = document.getElementById('team-grid');
+                        
+                        let onlineTeam = data.members.filter(member => TEAM_CONFIG[member.id] !== undefined);
+
+                        if (onlineTeam.length > 0) {
+                            onlineTeam.sort((a, b) => TEAM_CONFIG[a.id].prio - TEAM_CONFIG[b.id].prio);
+
+                            teamGrid.innerHTML = ''; 
+
+                            onlineTeam.forEach(member => {
+                                const config = TEAM_CONFIG[member.id];
+                                
+                                let statusClass = 'status-online';
+                                if (member.status === 'idle') statusClass = 'status-idle';
+                                if (member.status === 'dnd') statusClass = 'status-dnd';
+
+                                const card = document.createElement('div');
+                                card.className = 'team-card';
+                                card.innerHTML = `
+                                    <div class="avatar-wrapper">
+                                        <img src="${member.avatar_url}" alt="${member.username}" class="avatar-img" style="border-color: ${config.color};">
+                                        <span class="status-dot ${statusClass}"></span>
+                                    </div>
+                                    <div class="member-name" title="${member.username}">${member.username}</div>
+                                    <div class="member-role" style="color: ${config.color}; background: ${config.color}15;">${config.roleName}</div>
+                                `; // HIER WAR DER FEHLER: ` statt ];
+                                teamGrid.appendChild(card);
+                            });
+                        } else {
+                            teamGrid.innerHTML = '<p style="color: var(--text-muted);">Aktuell keine Teammitglieder online.</p>';
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Fehler beim Abrufen der Discord-Zahlen:', error);
+                    document.getElementById('live-online-count').innerText = "Online";
+                });
+        }
+        
+        fetchDiscordOnlineStats();
+        setInterval(fetchDiscordOnlineStats, 25000);
+    </script>
 </body>
 </html>
