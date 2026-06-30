@@ -118,6 +118,17 @@
             background: rgba(255,255,255,0.06);
         }
 
+        .page-tab {
+            background: none;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .page-tab.active {
+            color: var(--text-main);
+            background: rgba(88,101,242,0.18);
+        }
+
         .nav-join-btn {
             display: inline-flex;
             align-items: center;
@@ -528,6 +539,18 @@
             filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
         }
 
+        .gallery-caption {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 0.6rem 0.9rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+        }
+
         /* Lightbox */
         .lightbox {
             display: none;
@@ -637,8 +660,12 @@
             overflow: hidden;
         }
 
+        .channel-container--small {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
         .channel-container widgetbot { display: block; }
-        .channel-container widgetbot.hidden { display: none; }
 
         /* ===== WX SECTION ===== */
         .wx-section-wrap {
@@ -801,10 +828,11 @@
                 <span>StormX</span>
             </a>
             <nav class="nav-links" aria-label="Hauptnavigation">
+                <button class="nav-link page-tab active" data-page="home">Start</button>
+                <button class="nav-link page-tab" data-page="wx">WX</button>
                 <a href="#gallery" class="nav-link">Galerie</a>
                 <a href="#team"    class="nav-link">Team</a>
                 <a href="#chat"    class="nav-link">Live Chat</a>
-                <a href="#wx"      class="nav-link">WX</a>
                 <a href="https://www.tiktok.com/@twisted_german/live" target="_blank" rel="noopener" class="nav-link">TikTok</a>
                 <a href="https://discord.gg/zycyFDWAB2" target="_blank" rel="noopener" class="nav-join-btn">
                     <i class="fa-brands fa-discord"></i> Beitreten
@@ -812,6 +840,8 @@
             </nav>
         </div>
     </header>
+
+    <div id="page-home">
 
     <!-- HERO -->
     <section class="hero-section" aria-label="Willkommen">
@@ -906,6 +936,7 @@
             <button class="lightbox-close" id="lightbox-close" aria-label="Schließen"><i class="fa-solid fa-xmark"></i></button>
             <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Vorheriges Bild"><i class="fa-solid fa-chevron-left"></i></button>
             <img id="lightbox-img" src="" alt="Vollbild">
+            <p id="lightbox-caption" style="color: white; text-align: center; margin-top: 12px; font-size: 0.95rem; font-weight: 600;"></p>
             <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Nächstes Bild"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
     </div>
@@ -935,26 +966,43 @@
                 <h2 class="section-title">Live Chat</h2>
             </div>
 
-            <!-- Channel tabs -->
-            <div class="channel-tabs" id="channel-tabs" role="tablist">
-                <button class="channel-tab active" role="tab" data-channel="1498188366284587068">
-                    <i class="fa-solid fa-hashtag"></i> Allgemein
-                </button>
-                <button class="channel-tab" role="tab" data-channel="1517945908170592509">
-                    <i class="fa-solid fa-hashtag"></i> Gaming
-                </button>
+    <!-- LIVE CHAT -->
+    <section class="section" id="chat" aria-label="Live Chat">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-eyebrow">Community</span>
+                <h2 class="section-title">Live Chat</h2>
             </div>
 
-            <div class="channel-container" id="chat-widgets">
-                <!-- Widgets injected by JS -->
+            <div class="channel-container channel-container--small">
+                <widgetbot
+                    server="1491862560100716544"
+                    channel="1498188366284587068"
+                    width="100%"
+                    height="420"
+                ></widgetbot>
             </div>
         </div>
     </section>
 
-    <hr class="section-divider">
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">StormX</div>
+            <span class="footer-copy">&copy; 2026 StormX Community – Alle Rechte vorbehalten.</span>
+            <div class="footer-links">
+                <a href="https://discord.gg/zycyFDWAB2" target="_blank" rel="noopener" class="footer-link">Discord</a>
+                <a href="https://www.tiktok.com/@twisted_german" target="_blank" rel="noopener" class="footer-link">TikTok</a>
+            </div>
+        </div>
+    </footer>
 
-    <!-- WX SECTION -->
-    <section class="section" id="wx" aria-label="WX Abteilung">
+    </div><!-- /#page-home -->
+
+    <!-- ===================== WX PAGE ===================== -->
+    <div id="page-wx" style="display:none;">
+
+    <section class="section" aria-label="WX Abteilung" style="padding: 4rem 2rem;">
         <div class="section-inner">
             <div class="wx-section-wrap">
                 <div class="wx-header">
@@ -992,17 +1040,7 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-inner">
-            <div class="footer-brand">StormX</div>
-            <span class="footer-copy">&copy; 2026 StormX Community – Alle Rechte vorbehalten.</span>
-            <div class="footer-links">
-                <a href="https://discord.gg/zycyFDWAB2" target="_blank" rel="noopener" class="footer-link">Discord</a>
-                <a href="https://www.tiktok.com/@twisted_german" target="_blank" rel="noopener" class="footer-link">TikTok</a>
-            </div>
-        </div>
-    </footer>
+    </div><!-- /#page-wx -->
 
     <!-- WidgetBot -->
     <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
@@ -1096,20 +1134,35 @@
         setInterval(fetchDiscordData, 25_000);
 
         // ── GALLERY ───────────────────────────────────────────────────────
-        const IMAGE_COUNT = 10; // Bilder: 1.png bis 10.png – passe die Zahl an!
-        const galleryImages = Array.from({ length: IMAGE_COUNT }, (_, i) => `${i + 1}.png`);
+        // Hier kannst du jedes Bild einzeln pflegen: Dateiname + Beschreibung.
+        // Einfach Zeilen hinzufügen, entfernen oder den Text anpassen.
+        // Fehlt eine Bilddatei (z.B. 4.png existiert nicht), wird die Kachel automatisch ausgeblendet.
+        const GALLERY_TABLE = [
+            { file: '1.png',  caption: 'Stormchase Highlight #1' },
+            { file: '2.png',  caption: 'Community Event' },
+            { file: '3.png',  caption: 'Twisted Radar Session' },
+            { file: '4.png',  caption: 'Live Voice Chat' },
+            { file: '5.png',  caption: 'Team Treffen' },
+            { file: '6.png',  caption: 'Stormchase Highlight #2' },
+            { file: '7.png',  caption: 'TikTok Live Moment' },
+            { file: '8.png',  caption: 'Community Screenshot' },
+            { file: '9.png',  caption: 'WX Daten Übersicht' },
+            { file: '10.png', caption: 'Stormchase Highlight #3' },
+        ];
+
         let currentImgIndex = 0;
 
         function buildGallery() {
             const grid = document.getElementById('gallery-grid');
             grid.innerHTML = '';
-            galleryImages.forEach((src, idx) => {
+            GALLERY_TABLE.forEach((entry, idx) => {
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
                 item.innerHTML = `
-                    <img src="${src}" alt="StormX Bild ${idx + 1}" loading="lazy"
+                    <img src="${entry.file}" alt="${entry.caption}" loading="lazy"
                          onerror="this.closest('.gallery-item').style.display='none'">
                     <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+                    <div class="gallery-caption">${entry.caption}</div>
                 `;
                 item.addEventListener('click', () => openLightbox(idx));
                 grid.appendChild(item);
@@ -1118,7 +1171,8 @@
 
         function openLightbox(idx) {
             currentImgIndex = idx;
-            document.getElementById('lightbox-img').src = galleryImages[idx];
+            document.getElementById('lightbox-img').src = GALLERY_TABLE[idx].file;
+            document.getElementById('lightbox-caption').textContent = GALLERY_TABLE[idx].caption;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -1129,8 +1183,9 @@
         }
 
         function stepLightbox(dir) {
-            currentImgIndex = (currentImgIndex + dir + galleryImages.length) % galleryImages.length;
-            document.getElementById('lightbox-img').src = galleryImages[currentImgIndex];
+            currentImgIndex = (currentImgIndex + dir + GALLERY_TABLE.length) % GALLERY_TABLE.length;
+            document.getElementById('lightbox-img').src = GALLERY_TABLE[currentImgIndex].file;
+            document.getElementById('lightbox-caption').textContent = GALLERY_TABLE[currentImgIndex].caption;
         }
 
         document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
@@ -1148,47 +1203,17 @@
 
         buildGallery();
 
-        // ── CHAT TABS ─────────────────────────────────────────────────────
-        const CHAT_CHANNELS = [
-            { id: '1498188366284587068', label: 'Allgemein',  icon: 'fa-hashtag' },
-            { id: '1517945908170592509', label: 'Gaming',     icon: 'fa-hashtag' },
-        ];
-
-        const chatContainer = document.getElementById('chat-widgets');
-        const tabBar        = document.getElementById('channel-tabs');
-
-        // Build widgets once; show/hide via CSS class
-        CHAT_CHANNELS.forEach((ch, idx) => {
-            const wb = document.createElement('widgetbot');
-            wb.setAttribute('server', DISCORD_SERVER_ID);
-            wb.setAttribute('channel', ch.id);
-            wb.setAttribute('width', '100%');
-            wb.setAttribute('height', '520');
-            wb.dataset.channelId = ch.id;
-            if (idx !== 0) wb.classList.add('hidden');
-            chatContainer.appendChild(wb);
-        });
-
-        // Rebuild tabs from config (they also exist in HTML as placeholders for styling)
-        tabBar.innerHTML = '';
-        CHAT_CHANNELS.forEach((ch, idx) => {
-            const btn = document.createElement('button');
-            btn.className = 'channel-tab' + (idx === 0 ? ' active' : '');
-            btn.setAttribute('role', 'tab');
-            btn.dataset.channel = ch.id;
-            btn.innerHTML = `<i class="fa-solid ${ch.icon}"></i> ${ch.label}`;
-            btn.addEventListener('click', () => switchChannel(ch.id));
-            tabBar.appendChild(btn);
-        });
-
-        function switchChannel(channelId) {
-            tabBar.querySelectorAll('.channel-tab').forEach(t => {
-                t.classList.toggle('active', t.dataset.channel === channelId);
+        // ── PAGE SWITCH (Start / WX) ─────────────────────────────────────
+        document.querySelectorAll('.page-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.page-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const target = btn.dataset.page;
+                document.getElementById('page-home').style.display = target === 'home' ? '' : 'none';
+                document.getElementById('page-wx').style.display   = target === 'wx'   ? '' : 'none';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
-            chatContainer.querySelectorAll('widgetbot').forEach(wb => {
-                wb.classList.toggle('hidden', wb.dataset.channelId !== channelId);
-            });
-        }
+        });
 
         // ── WX CHANNEL CARDS ──────────────────────────────────────────────
         document.querySelectorAll('.wx-channel-card[data-channel-jump]').forEach(card => {
