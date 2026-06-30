@@ -718,6 +718,16 @@
 
         .wx-header-text p { color: var(--text-muted); font-size: 0.9rem; }
 
+        .wx-intro {
+            color: var(--text-muted);
+            font-size: 0.97rem;
+            line-height: 1.7;
+            max-width: 760px;
+            margin-bottom: 2rem;
+        }
+
+        .wx-intro strong { color: var(--text-main); }
+
         .wx-channels {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -759,6 +769,109 @@
 
         .wx-channel-info h4 { font-weight: 700; font-size: 0.95rem; margin-bottom: 2px; }
         .wx-channel-info p  { color: var(--text-muted); font-size: 0.8rem; }
+
+        /* ===== WX RADAR ===== */
+        .wx-radar-wrap {
+            margin-bottom: 2.5rem;
+        }
+
+        .wx-radar-frame {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(56,189,248,0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        }
+
+        .wx-radar-frame iframe {
+            display: block;
+            background: #0c0e13;
+        }
+
+        /* ===== WX GALLERY TABLE ===== */
+        .wx-gallery-wrap {
+            margin-top: 2.5rem;
+        }
+
+        .wx-gallery-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .wx-gallery-header h4 {
+            color: var(--wx-blue);
+            font-size: 1.05rem;
+            font-weight: 800;
+        }
+
+        .wx-gallery-header p {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
+
+        .wx-table-scroll {
+            overflow-x: auto;
+            border-radius: 14px;
+            border: 1px solid rgba(56,189,248,0.12);
+        }
+
+        table.wx-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255,255,255,0.02);
+            min-width: 560px;
+        }
+
+        table.wx-table thead th {
+            text-align: left;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--wx-blue);
+            background: rgba(56,189,248,0.08);
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(56,189,248,0.15);
+        }
+
+        table.wx-table tbody td {
+            padding: 0.75rem 1rem;
+            font-size: 0.88rem;
+            color: var(--text-main);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            vertical-align: middle;
+        }
+
+        table.wx-table tbody tr:last-child td { border-bottom: none; }
+
+        table.wx-table tbody tr:hover { background: rgba(56,189,248,0.04); }
+
+        .wx-thumb {
+            width: 72px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            background: var(--card-bg);
+            display: block;
+            cursor: pointer;
+        }
+
+        .wx-thumb-cell { width: 90px; }
+
+        .wx-file-cell {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .wx-missing {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 0.8rem;
+        }
 
         /* ===== FOOTER ===== */
         footer {
@@ -966,14 +1079,6 @@
                 <h2 class="section-title">Live Chat</h2>
             </div>
 
-    <!-- LIVE CHAT -->
-    <section class="section" id="chat" aria-label="Live Chat">
-        <div class="section-inner">
-            <div class="section-header">
-                <span class="section-eyebrow">Community</span>
-                <h2 class="section-title">Live Chat</h2>
-            </div>
-
             <div class="channel-container channel-container--small">
                 <widgetbot
                     server="1491862560100716544"
@@ -1014,6 +1119,37 @@
                         <p>Wetterdaten, Radar und Stormchasing-Infos direkt aus unserer Community</p>
                     </div>
                 </div>
+
+                <p class="wx-intro">
+                    Bei StormX geht es nicht nur um Twisted. Ein großer Teil unserer Community verfolgt
+                    auch <strong>das echte Wetter im echten Leben</strong> – egal ob in den USA, in Europa
+                    oder anderswo. Wir beobachten Unwetterlagen, Gewitterzellen, Tornado-Setups und
+                    Sturmsysteme und werten Radar- sowie Modelldaten <strong>auf einem eher professionellen
+                    Niveau</strong> aus. In der WX Abteilung tauschen wir uns über aktuelle Wetterlagen aus,
+                    diskutieren Vorhersagemodelle und ordnen Live-Radardaten gemeinsam ein – sowohl für
+                    echtes Stormchasing als auch für unsere Chases in Twisted.
+                </p>
+
+                <div class="wx-radar-wrap">
+                    <div class="wx-gallery-header">
+                        <h4><i class="fa-solid fa-satellite-dish" style="margin-right: 6px;"></i>Live Wetter-Radar</h4>
+                        <p>Powered by RainViewer – weltweite Regen- & Unwetterradar-Daten</p>
+                    </div>
+                    <div class="wx-radar-frame">
+                        <iframe
+                            src="https://www.rainviewer.com/map.html?loc=45,-10,3&oFa=0&oC=0&oU=0&oCS=1&oF=0&oAP=1&c=3&o=83&lm=1&layer=radar&sm=1&sn=1"
+                            width="100%"
+                            height="500"
+                            frameborder="0"
+                            loading="lazy"
+                            title="RainViewer Live Wetter-Radar">
+                        </iframe>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.78rem; margin-top: 0.6rem;">
+                        Tipp: Im Radar kannst du frei zoomen und verschieben, um sowohl die USA als auch Europa zu sehen.
+                    </p>
+                </div>
+
                 <div class="wx-channels">
                     <div class="wx-channel-card" data-channel-jump="1517503461833576610">
                         <div class="wx-channel-icon"><i class="fa-solid fa-satellite-dish"></i></div>
@@ -1028,6 +1164,28 @@
                             <h4>Stormchasing</h4>
                             <p>Twisted-Chases, Koordination und Berichte</p>
                         </div>
+                    </div>
+                </div>
+
+                <!-- WX FOTOS TABELLE -->
+                <div class="wx-gallery-wrap">
+                    <div class="wx-gallery-header">
+                        <h4><i class="fa-solid fa-image" style="margin-right: 6px;"></i>WX Fotos</h4>
+                        <p>Radarbilder, Unwetterfotos & Chase-Aufnahmen unserer Community</p>
+                    </div>
+                    <div class="wx-table-scroll">
+                        <table class="wx-table">
+                            <thead>
+                                <tr>
+                                    <th>Vorschau</th>
+                                    <th>Dateiname</th>
+                                    <th>Beschreibung</th>
+                                </tr>
+                            </thead>
+                            <tbody id="wx-gallery-tbody">
+                                <!-- wird per JS aus WX_GALLERY_TABLE befüllt -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -1202,6 +1360,38 @@
         });
 
         buildGallery();
+
+        // ── WX FOTOS TABELLE ─────────────────────────────────────────────
+        // Hier kannst du Fotos für die WX-Seite pflegen: Dateiname + Beschreibung.
+        // Einfach Zeilen hinzufügen, entfernen oder den Text anpassen.
+        // Fehlt eine Bilddatei, wird die Zeile automatisch als "fehlt" markiert (kein Bruch des Layouts).
+        const WX_GALLERY_TABLE = [
+            { file: 'wx1.png', caption: 'Superzelle über Texas, USA' },
+            { file: 'wx2.png', caption: 'Radarbild einer Gewitterlinie über Deutschland' },
+            { file: 'wx3.png', caption: 'Tornado-Sichtung während eines IRL-Chases' },
+            { file: 'wx4.png', caption: 'Modelldaten-Auswertung für ein Unwetterpotenzial' },
+            { file: 'wx5.png', caption: 'Mammatuswolken nach einem Gewitter' },
+        ];
+
+        function buildWxGallery() {
+            const tbody = document.getElementById('wx-gallery-tbody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            WX_GALLERY_TABLE.forEach(entry => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="wx-thumb-cell">
+                        <img src="${entry.file}" alt="${entry.caption}" class="wx-thumb" loading="lazy"
+                             onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'wx-missing',textContent:'fehlt'}))">
+                    </td>
+                    <td class="wx-file-cell">${entry.file}</td>
+                    <td>${entry.caption}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        buildWxGallery();
 
         // ── PAGE SWITCH (Start / WX) ─────────────────────────────────────
         document.querySelectorAll('.page-tab').forEach(btn => {
