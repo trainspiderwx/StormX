@@ -812,66 +812,27 @@
             font-size: 0.82rem;
         }
 
-        .wx-table-scroll {
-            overflow-x: auto;
-            border-radius: 14px;
-            border: 1px solid rgba(56,189,248,0.12);
+        .wx-gallery-wrap .gallery-grid {
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         }
 
-        table.wx-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: rgba(255,255,255,0.02);
-            min-width: 560px;
+        .wx-gallery-wrap .gallery-item {
+            border-color: rgba(56,189,248,0.12);
         }
 
-        table.wx-table thead th {
-            text-align: left;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.6px;
-            color: var(--wx-blue);
-            background: rgba(56,189,248,0.08);
-            padding: 0.8rem 1rem;
-            border-bottom: 1px solid rgba(56,189,248,0.15);
-        }
-
-        table.wx-table tbody td {
-            padding: 0.75rem 1rem;
-            font-size: 0.88rem;
-            color: var(--text-main);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            vertical-align: middle;
-        }
-
-        table.wx-table tbody tr:last-child td { border-bottom: none; }
-
-        table.wx-table tbody tr:hover { background: rgba(56,189,248,0.04); }
-
-        .wx-thumb {
-            width: 72px;
-            height: 48px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 1px solid var(--card-border);
-            background: var(--card-bg);
-            display: block;
-            cursor: pointer;
-        }
-
-        .wx-thumb-cell { width: 90px; }
-
-        .wx-file-cell {
-            font-family: monospace;
-            font-size: 0.8rem;
+        .wx-missing-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
             color: var(--text-muted);
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 1rem;
         }
 
-        .wx-missing {
-            color: var(--text-muted);
-            font-style: italic;
-            font-size: 0.8rem;
-        }
+        .wx-missing-item i { font-size: 1.6rem; opacity: 0.5; }
 
         /* ===== FOOTER ===== */
         footer {
@@ -1167,25 +1128,14 @@
                     </div>
                 </div>
 
-                <!-- WX FOTOS TABELLE -->
+                <!-- WX FOTOS GALERIE -->
                 <div class="wx-gallery-wrap">
                     <div class="wx-gallery-header">
                         <h4><i class="fa-solid fa-image" style="margin-right: 6px;"></i>WX Fotos</h4>
                         <p>Radarbilder, Unwetterfotos & Chase-Aufnahmen unserer Community</p>
                     </div>
-                    <div class="wx-table-scroll">
-                        <table class="wx-table">
-                            <thead>
-                                <tr>
-                                    <th>Vorschau</th>
-                                    <th>Dateiname</th>
-                                    <th>Beschreibung</th>
-                                </tr>
-                            </thead>
-                            <tbody id="wx-gallery-tbody">
-                                <!-- wird per JS aus WX_GALLERY_TABLE befüllt -->
-                            </tbody>
-                        </table>
+                    <div class="gallery-grid" id="wx-gallery-grid">
+                        <!-- wird per JS aus WX_GALLERY_TABLE befüllt -->
                     </div>
                 </div>
 
@@ -1366,7 +1316,11 @@
         // Einfach Zeilen hinzufügen, entfernen oder den Text anpassen.
         // Fehlt eine Bilddatei, wird die Zeile automatisch als "fehlt" markiert (kein Bruch des Layouts).
         const WX_GALLERY_TABLE = [
-            { file: 'wx1.png', caption: 'Unwetter über Berlin-Brandenburg am 21.06.2026' },
+            { file: 'wx1.png', caption: 'Superzelle über Texas, USA' },
+            { file: 'wx2.png', caption: 'Radarbild einer Gewitterlinie über Deutschland' },
+            { file: 'wx3.png', caption: 'Tornado-Sichtung während eines IRL-Chases' },
+            { file: 'wx4.png', caption: 'Modelldaten-Auswertung für ein Unwetterpotenzial' },
+            { file: 'wx5.png', caption: 'Mammatuswolken nach einem Gewitter' },
         ];
 
         function buildWxGallery() {
